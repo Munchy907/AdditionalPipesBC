@@ -87,6 +87,8 @@ tip.teleportPipe=No more long pipelines!
 
 tooltip.dog_deaggravator=Calms down your dogs
 
+tooltip.teleport_tether_crafting_disabled=Crafting disabled by config
+
 itemGroup.apcreativetab=Additional Pipes
 
 # chat stuff
