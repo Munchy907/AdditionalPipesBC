@@ -15,7 +15,7 @@ public class MessageChunkloadRequest implements IMessage, IMessageHandler<Messag
     @Override
     public IMessage onMessage(MessageChunkloadRequest message, MessageContext ctx)
     {
-    	AdditionalPipes.instance.chunkLoadViewer.sendPersistentChunksToPlayer(ctx.getServerHandler().playerEntity);
+    	AdditionalPipes.instance.chunkLoadViewer.sendPersistentChunksToPlayer(ctx.getServerHandler().player);
     	
     	return null;
     }

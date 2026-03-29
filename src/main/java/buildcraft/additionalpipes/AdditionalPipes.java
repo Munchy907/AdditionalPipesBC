@@ -12,11 +12,13 @@ import buildcraft.additionalpipes.gui.GuiHandler;
 import buildcraft.additionalpipes.item.ItemDogDeaggravator;
 import buildcraft.additionalpipes.network.PacketHandler;
 import buildcraft.additionalpipes.pipes.TeleportManager;
+import buildcraft.additionalpipes.render.TeleportTetherRenderer;
 import buildcraft.additionalpipes.sound.APSounds;
 import buildcraft.additionalpipes.test.TeleportManagerTest;
 import buildcraft.additionalpipes.utils.Log;
 import buildcraft.api.statements.ITriggerInternal;
 import buildcraft.api.statements.StatementManager;
+import buildcraft.lib.client.render.DetachedRenderer;
 import buildcraft.lib.registry.CreativeTabManager;
 import buildcraft.lib.registry.CreativeTabManager.CreativeTabBC;
 import buildcraft.silicon.BCSiliconItems;
@@ -59,7 +61,7 @@ public class AdditionalPipes {
 	public File configFile;
 	
 	// chunk load boundaries
-	//public ChunkLoadViewDataProxy chunkLoadViewer;
+	public ChunkLoadViewDataProxy chunkLoadViewer;
 	
 	public CreativeTabBC creativeTab;
 	
@@ -102,6 +104,8 @@ public class AdditionalPipes {
 		// create blocks
 		blockTeleportTether = new BlockTeleportTether();
 		blockTeleportTether.setRegistryName("teleport_tether");
+
+		DetachedRenderer.INSTANCE.addRenderer(DetachedRenderer.RenderMatrixType.FROM_WORLD_ORIGIN, TeleportTetherRenderer.INSTANCE);
 
 	}
 	
@@ -156,8 +160,8 @@ public class AdditionalPipes {
 		
 		Log.info("Registering chunk load handler");
 		ForgeChunkManager.setForcedChunkLoadingCallback(this, new ChunkLoadingHandler());
-		//chunkLoadViewer = new ChunkLoadViewDataProxy(APConfiguration.chunkSightRange);
-		//MinecraftForge.EVENT_BUS.register(chunkLoadViewer);
+		chunkLoadViewer = new ChunkLoadViewDataProxy(APConfiguration.chunkSightRange);
+		MinecraftForge.EVENT_BUS.register(chunkLoadViewer);
 		
 		GameRegistry.registerTileEntity(TileTeleportTether.class, "teleport_tether");
 		

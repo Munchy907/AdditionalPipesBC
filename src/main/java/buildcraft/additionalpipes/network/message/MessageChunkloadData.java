@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 import buildcraft.additionalpipes.AdditionalPipes;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -25,8 +26,9 @@ public class MessageChunkloadData implements IMessage, IMessageHandler<MessageCh
     @Override
     public IMessage onMessage(MessageChunkloadData message, MessageContext ctx)
     {
-    	AdditionalPipes.instance.chunkLoadViewer.receivePersistentChunks(message._chunksInRange);
-    	
+		Minecraft.getMinecraft().addScheduledTask(() -> {
+			AdditionalPipes.instance.chunkLoadViewer.receivePersistentChunks(message._chunksInRange);
+		});
     	return null;
     }
 
@@ -56,8 +58,10 @@ public class MessageChunkloadData implements IMessage, IMessageHandler<MessageCh
 		
 		for(ChunkPos pair : _chunksInRange)
 		{
-			buf.writeInt(pair.chunkXPos);
-			buf.writeInt(pair.chunkZPos);
+			//buf.writeInt(pair.chunkXPos);
+			//buf.writeInt(pair.chunkZPos);
+			buf.writeInt(pair.x);
+			buf.writeInt(pair.z);
 		}
 	}
 }

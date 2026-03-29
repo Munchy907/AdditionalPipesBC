@@ -1,5 +1,8 @@
 package buildcraft.additionalpipes.keyboard;
 
+import buildcraft.additionalpipes.AdditionalPipes;
+import buildcraft.additionalpipes.ChunkLoadViewDataProxy;
+import buildcraft.additionalpipes.utils.Log;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
@@ -20,14 +23,17 @@ public class KeyInputEventHandler
             {
             	if(Keybindings.lasers.isPressed())
             	{
-            		/*
+                    Log.info("Keybind is working");
 	            	ChunkLoadViewDataProxy viewer = AdditionalPipes.instance.chunkLoadViewer;
-	    			if(!viewer.lasersActive()) 
-	    			{
-	    				viewer.requestPersistentChunks();
-	    			}
-	    			viewer.toggleLasers();
-	    			*/
+
+                    if (!viewer.lasersActive()){
+                        Log.info("Laser not active");
+                        viewer.requestPersistentChunks();
+                    }
+                    else {
+                        Log.info("Laser is active");
+                    }
+                    viewer.toggleLasers();
             	}
             }
         }
